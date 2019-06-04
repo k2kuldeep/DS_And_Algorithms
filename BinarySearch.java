@@ -48,6 +48,7 @@ public class BinarySearch {
 		}
 	}
 	
+	// binary search time : 0(log n)
 	public static int BinSearchIter(int arr[],int n,int x){
 		int first =1,last=n;
 		
