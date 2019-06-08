@@ -122,7 +122,7 @@ class DemoLinkList
 	public void show()
 	{
 		Node temp = head;
-		while(temp.next!=null){
+		while(temp.next!=null){			// while(temp != null)  in this case it prints all.
 			System.out.print(temp.data+"\t");
 			temp = temp.next;
 		}
