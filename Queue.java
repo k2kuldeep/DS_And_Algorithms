@@ -9,7 +9,6 @@ public class Queue {
 		{
 			System.out.println("1.EnQueue\n2.DeQueue\n3.Display\n4.Exit");
 			char ch = sc.next().charAt(0);
-			
 			switch(ch)
 			{
 			case '1':
