@@ -1,4 +1,7 @@
 import java.util.*;
+/*Merge Sort Implementation. (Stable)
+keep on dividing the array until single-single elements are left. then add the elements in sorted order.
+*/
 public class MergeSort {
 
 	public static void main(String[] args) {
