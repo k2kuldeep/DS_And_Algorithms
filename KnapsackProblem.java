@@ -1,73 +1,37 @@
-import java.util.Arrays;
-import java.util.Comparator;
-
-//solve fractional knapsack problem by greedy method
+//solve 0 1 knapsack problem using dynamic programming
 public class KnapsackProblem {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		int wt[] = {10,20,30};
+		int val[] = {60,100,120};
 		
-		double[] wt = {10, 40, 20, 30}; 
-        int[] p = {60, 40, 100, 120};
+		int W = 50;//capacity
+		int  n = val.length;
 		
-		int capacity = 50;
-		int len = p.length;
+		int k[][] = new int[n+1][W+1];
 		
-		//creating an array of class and sorting according to cost of each class 
-		//so rest values(profit and weight) will be sorted accordingly
-		ArrayValue[] iVal = new ArrayValue[len];
-		
-		for(int i=0;i<len;i++){
-			iVal[i] = new ArrayValue(p[i],wt[i]);
-			//System.out.println("iVal = "+iVal[i]);
+		for(int i=0;i<=n;i++){
+			
+			for(int j=0;j<=W;j++){
+				
+				if(i==0 || j==0)
+					k[i][j] = 0;
+				else if(wt[i - 1] <= j)
+					k[i][j] = max(val[i-1]+k[i-1][j-wt[i-1]],k[i-1][j]);
+				else
+					k[i][j] = k[i-1][j];
+				
+			}
 		}
 		
-		//comparator interface is used to order the objects of a user defined class
-		Arrays.sort(iVal,new Comparator<ArrayValue>() {
-			@Override
-			public int compare(ArrayValue arg0, ArrayValue arg1) {
-				// TODO Auto-generated method stub
-				return (arg1.cost).compareTo(arg0.cost);		//arg1 compared to arg0 sorts in descending order
-															// while arg0 compared to arg1 sorts in ascending order
-			}
-		});
+		System.out.println(k[n][W]);
 		
-		double totalValue = 0;
-		for(ArrayValue i:iVal){
-			//System.out.println(i.cost);
-			if(capacity - i.wt >= 0 ){			//when whole item can be added
-				capacity -= (int)(i.wt);
-				totalValue += i.value;
-				
-				System.out.println("capacity 1 left = "+capacity);
-				System.out.println("value 1 total = "+totalValue);
-			}
-			else{								//when only a fraction is added
-				double ratio = capacity/i.wt;
-				totalValue += ratio*i.value;
-				capacity -= (int)(i.wt)*ratio;
-				
-				System.out.println("capacity 2 left = "+capacity);
-				System.out.println("value 2 total = "+totalValue);
-				break;
-			}
-		}
-		System.out.println("total profit = "+totalValue);
 	}
 
-	static class ArrayValue
-	{
-		int value;
-		Double cost;
-		double wt;
-		ArrayValue(int p,double wt){
-			this.value = p;
-			this.wt = wt;
-			
-			cost = p/wt;
-			
-			//System.out.println("cost = "+cost);
-		}
+	static int max(int a,int b) {
+		// TODO Auto-generated method stub
+		return (a>b)? a:b;
 	}
-	
+
 }
